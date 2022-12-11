@@ -1,0 +1,13 @@
+./node_modules
+./node_modules/.bin
+.env
+/.env
+node_modules
+node_modules/
+node_modules/*
+node_modules/*
+index.js
+/index.js
+./index.js
+
+yarn.lock
