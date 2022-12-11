@@ -403,6 +403,9 @@ app.get("/products/:adminId", (req, res) => {
 		})
 })
 
+app.get('/', (req, res) => {
+	res.send('Hello World!')
+})
 /* get a product */
 app.get("/product/:productId", (req, res) => {
 	const { productId } = req.params
