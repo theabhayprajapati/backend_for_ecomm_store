@@ -424,7 +424,7 @@ app.get("/product/:productId", (req, res) => {
 })
 
 
-app.listen(1337, () => {
+app.listen(process.env.PORT, () => {
 	console.log('Listening on 1337')
 	// connect
 	mongoose.connect(process.env.MONGODB_URI, {
