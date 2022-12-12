@@ -4,6 +4,7 @@
   "main": "main.js",
   "license": "MIT",
   "type": "module",
+
   "scripts": {
     "dev": "nodemon main.js"
   },

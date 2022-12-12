@@ -204,6 +204,7 @@ app.post("/login", (req, res) => {
 /* admin signin */
 
 app.post("/admin/signup", (req, res) => {
+	console.log(req.body)
 	const { email, password, name, phone, storeName } = req.body
 	const encryptedPassword = bcrypt.hashSync(password, 10)
 	const admin = new Admin({
@@ -213,11 +214,9 @@ app.post("/admin/signup", (req, res) => {
 		phone,
 		password: encryptedPassword,
 		storeName,
-		accountType: "admin"
+		accountType: "admin",
 	})
-	/* sample
-		
-	*/
+
 	admin.save()
 		.then((admin) => {
 			res.status(200).json({ message: "admin created successfully" })
@@ -237,12 +236,10 @@ app.post("/admin/login", (req, res) => {
 			if (admin) {
 				const isPasswordCorrect = bcrypt.compareSync(password, admin.password)
 				if (isPasswordCorrect) {
-					const token = jwt.sign({
-						_id: admin._id
-					},
-						process.env.JWT_SECRET
-					)
-					res.status(200).json({ message: "login successful", token })
+					const { password, ...adminWithoutPassword } = admin._doc
+					const name = admin.name
+					const token = jwt.sign({ adminWithoutPassword }, process.env.JWT_SECRET, { expiresIn: "30d" })
+					res.status(200).json({ message: "login successful", token , type: "admin", name})
 				} else {
 					res.status(401).json({ message: "invalid credentials" })
 				}

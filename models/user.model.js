@@ -5,38 +5,46 @@ const productSchema = new mongoose.Schema({
     id: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        sparse: true
     },
     /* admin id */
     adminId: {
         type: String,
-        required: true
+        required: true,
+        sparse: true
     },
     /* admin name */
     adminName: {
         type: String,
-        required: true
+        required: true,
+        sparse: true
     },
 
     title: {
         type: String,
-        required: true
+        required: true,
+        sparse: true
     },
     price: {
         type: Number,
-        required: true
+        required: true,
+        sparse: true
     },
     quantity: {
         type: Number,
-        required: true
+        required: true,
+        sparse: true
     },
     description: {
         type: String,
-        required: false
+        required: false,
+        sparse: true
     },
     image: {
         type: String,
-        required: false
+        required: false,
+        sparse: true
     },
 
 }
@@ -46,25 +54,30 @@ const orderSchema = new mongoose.Schema({
     productId: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        sparse: true
     },
     productName: {
         type: String,
-        required: true
+        required: true,
+        sparse: true
     },
     productprice: {
         type: Number,
-        required: true
+        required: true,
+        sparse: true
     },
     productquantity: {
         type: Number,
-        required: true
+        required: true,
+        sparse: true
     },
     productstatus: {
         /* default procced */
         type: String,
         required: true,
-        default: "processed"
+        default: "processed",
+        sparse: true
         /* 
             1. pending
             2. processing
@@ -80,17 +93,20 @@ const orderSchema = new mongoose.Schema({
     /* admin id */
     adminId: {
         type: String,
+        sparse: true,
         required: true
     },
     /* admin name */
     adminName: {
         type: String,
+        sparse: true,
         required: true
     },
     /* user id */
     userId: {
         type: String,
-        required: true
+        sparse: true,
+        required: true,
     }
 })
 
@@ -136,25 +152,22 @@ const adminSchema = new mongoose.Schema({
     id: {
         type: String,
         required: true,
+    }, email: {
+        unique: true,
+        type: String,
+        required: true
+    }, password: {
+        type: String,
+        required: true
+    }, phone: {
+        type: String,
+        required: true
     },
     name: {
         type: String,
         required: true
     },
-    email: {
-        unique: true,
-        type: String,
-        required: true
-    },
-    phone: {
-        unique: true,
-        type: String,
-        required: true
-    },
-    accountType: {
-        type: String,
-        required: true
-    },
+
     storeName: {
         type: String,
         required: true
@@ -163,19 +176,23 @@ const adminSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    password: {
+
+    accountType: {
         type: String,
         required: true
     },
+
     /* inventory */
     inventory: {
         type: [productSchema],
-        default: []
+        sparse: true,
+        required: false,
     },
     /* orders */
     orders: {
         type: [orderSchema],
-        default: []
+        sparse: true,
+        required: false,
     }
 })
 
